@@ -107,11 +107,11 @@ ssh -oStrictHostKeyChecking=no ubuntu@$hubIp 'java -jar selenium-server-standalo
 ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp 'sudo apt-get -qq update; sudo apt-get -yqq upgrade; sudo apt-get -yqq install default-jdk; wget -q https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar;'
 ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp "java -jar selenium-server-standalone-3.14.0.jar -role node -hub http://$hubIp:4444/grid/register -browser browserName=chrome,maxInstances=5 > /dev/null 2>&1 &"
 #setup and firefox node
-# TODO - install firefox
-ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp 'sudo apt-get -qq update; sudo apt-get -yqq upgrade; sudo apt-get -yqq install default-jdk; wget -q https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar;'
+ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp 'sudo apt-get -qq update; sudo apt-get -yqq upgrade; sudo apt-get -yqq install default-jdk; sudo apt-get -yqq install firefox; wget -q https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar;'
 ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp "java -jar selenium-server-standalone-3.14.0.jar -role node -hub http://$hubIp:4444/grid/register -browser browserName=firefox,maxInstances=5 > /dev/null 2>&1 &"
+#setup and firefox node
+# TODO - setup and install internet explorer node
 echo
 echo
 echo
 echo "Access Selenium Hub at http://$hubIp:4444/grid/console"
-# TODO - console doesn't come up, just spins...
