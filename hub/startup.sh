@@ -14,8 +14,8 @@ hubId=$(echo $response | jq -r '.Instances [] .InstanceId')
 aws ec2 create-tags \
     --resources $hubId \
     --tags \
-        'Key="Name",Value="Foundations of Selenium - Hub"' \
-        'Key="Group",Value="Foundations of Selenium"'
+        'Key="Name",Value="Fundamentals of Selenium - Hub"' \
+        'Key="Group",Value="Fundamentals of Selenium"'
 
 #launch chrome node
 response=`aws ec2 run-instances \
@@ -31,8 +31,8 @@ chromeNodeId=$(echo $response | jq -r '.Instances [] .InstanceId')
 aws ec2 create-tags \
     --resources $chromeNodeId \
     --tags \
-        'Key="Name",Value="Foundations of Selenium - Chrome Node"' \
-        'Key="Group",Value="Foundations of Selenium"'
+        'Key="Name",Value="Fundamentals of Selenium - Chrome Node"' \
+        'Key="Group",Value="Fundamentals of Selenium"'
 
 #launch firefox node
 response=`aws ec2 run-instances \
@@ -48,8 +48,8 @@ firefoxNodeId=$(echo $response | jq -r '.Instances [] .InstanceId')
 aws ec2 create-tags \
     --resources $firefoxNodeId \
     --tags \
-        'Key="Name",Value="Foundations of Selenium - Firefox Node"' \
-        'Key="Group",Value="Foundations of Selenium"'
+        'Key="Name",Value="Fundamentals of Selenium - Firefox Node"' \
+        'Key="Group",Value="Fundamentals of Selenium"'
 
 #wait for hub to be available
 details=`aws ec2 describe-instances \
@@ -99,19 +99,25 @@ do
     sleep 10
 done
 
+selenium=3.14
+
 #setup and configure hub
-ssh -oStrictHostKeyChecking=no ubuntu@$hubIp 'sudo apt-get -qq update; sudo apt-get -yqq upgrade; sudo apt-get -yqq install default-jdk; wget -q https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar;'
-ssh -oStrictHostKeyChecking=no ubuntu@$hubIp 'java -jar selenium-server-standalone-3.14.0.jar -role hub > /dev/null 2>&1 &'
-#setup and chrome node
-# TODO - install chrome
-ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp 'sudo apt-get -qq update; sudo apt-get -yqq upgrade; sudo apt-get -yqq install default-jdk; wget -q https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar;'
-ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp "java -jar selenium-server-standalone-3.14.0.jar -role node -hub http://$hubIp:4444/grid/register -browser browserName=chrome,maxInstances=5 > /dev/null 2>&1 &"
-#setup and firefox node
-ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp 'sudo apt-get -qq update; sudo apt-get -yqq upgrade; sudo apt-get -yqq install default-jdk; sudo apt-get -yqq install firefox; wget -q https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar;'
-ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp "java -jar selenium-server-standalone-3.14.0.jar -role node -hub http://$hubIp:4444/grid/register -browser browserName=firefox,maxInstances=5 > /dev/null 2>&1 &"
-#setup and firefox node
-# TODO - setup and install internet explorer node
+ssh -oStrictHostKeyChecking=no ubuntu@$hubIp "sudo su; apt-get -qq update; apt-get -qqy upgrade; apt-get -qqy install default-jdk"
+ssh -oStrictHostKeyChecking=no ubuntu@$hubIp "wget -q https://selenium-release.storage.googleapis.com/$selenium/selenium-server-standalone-$selenium.0.jar"
+ssh -oStrictHostKeyChecking=no ubuntu@$hubIp "java -jar selenium-server-standalone-$selenium.0.jar -role hub > /dev/null 2>&1 &"
+#setup and configure chrome node
+ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp "sudo su; echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list; wget https://dl.google.com/linux/linux_signing_key.pub; apt-key add linux_signing_key.pub"
+ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp "sudo su; apt-get -qq update; apt-get -qqy upgrade; apt-get -qqy install default-jdk; apt-get -qqy install google-chrome-stable; apt-get -qqy install xvfb"
+ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp "wget -q https://selenium-release.storage.googleapis.com/$selenium/selenium-server-standalone-$selenium.0.jar; wget -q https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip; unzip chromedriver_linux64.zip"
+ssh -oStrictHostKeyChecking=no ubuntu@$chromeNodeIp "export DISPLAY=:99; Xvfb :99 & java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server-standalone-$selenium.0.jar -role node -hub http://$hubIp:4444/grid/register -browser browserName=chrome,maxInstances=5 > /dev/null 2>&1 &"
+#setup and configure firefox node
+ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp "sudo su apt-get -qq update; apt-get -qqy upgrade; apt-get -qqy install default-jdk; apt-get -qqy install firefox; apt-get -qqy install xvfb; apt-get -qqy install dbus-x11;"
+ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp "wget -q https://selenium-release.storage.googleapis.com/$selenium/selenium-server-standalone-$selenium.0.jar; wget -q https://github.com/mozilla/geckodriver/releases/download/v0.21.0/geckodriver-v0.21.0-linux64.tar.gz; tar -xzf geckodriver-v0.21.0-linux64.tar.gz"
+ssh -oStrictHostKeyChecking=no ubuntu@$firefoxNodeIp "export DISPLAY=:99; Xvfb :99 & java -Dwebdriver.gecko.driver=geckodriver -jar selenium-server-standalone-$selenium.0.jar -role node -hub http://$hubIp:4444/grid/register -browser browserName=firefox,maxInstances=5 > /dev/null 2>&1 &"
+#setup and configure internet explorer node
+# TODO
 echo
 echo
 echo
 echo "Access Selenium Hub at http://$hubIp:4444/grid/console"
+echo "Run tests using Hub endpoint http://$hubIp:4444"
