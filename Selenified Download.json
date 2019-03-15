@@ -1,0 +1,56 @@
+{
+  "Name": "Selenified Download",
+  "CreationDate": "2019-3-15",
+  "Commands": [
+    {
+      "Command": "open",
+      "Target": "https://www.coveros.com/",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "//*[@id=\"header\"]/div[2]",
+      "Value": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "link=Selenified",
+      "Value": ""
+    },
+    {
+      "Command": "type",
+      "Target": "name=FirstName",
+      "Value": "Max"
+    },
+    {
+      "Command": "type",
+      "Target": "name=LastName",
+      "Value": "Saperstone"
+    },
+    {
+      "Command": "type",
+      "Target": "name=email",
+      "Value": "max.saperstone@coveros.com"
+    },
+    {
+      "Command": "type",
+      "Target": "name=Company",
+      "Value": "Coveros"
+    },
+    {
+      "Command": "click",
+      "Target": "//*[@id=\"wpcf7-f7147-o1\"]/form/p/input",
+      "Value": ""
+    },
+    {
+      "Command": "waitForVisible",
+      "Target": "//*[@id=\"wpcf7-f7147-o1\"]/form/div[2]",
+      "Value": ""
+    },
+    {
+      "Command": "assertText",
+      "Target": "//*[@id=\"wpcf7-f7147-o1\"]/form/div[2]",
+      "Value": "Thank you for your interest in Selenified. Your download should have started."
+    }
+  ]
+}
