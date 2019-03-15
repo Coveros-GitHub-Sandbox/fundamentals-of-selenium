@@ -4,6 +4,7 @@ import com.coveros.selenified.Selenified;
 import com.coveros.selenified.application.App;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.Home;
 import pages.SelenifiedProduct;
@@ -16,15 +17,34 @@ public class CoverosIT extends Selenified {
         setTestSite(this, test, "https://www.coveros.com");
     }
 
-    @Test
-    public void seleniumSearch() {
+    @DataProvider(name = "search items", parallel = true)
+    public Object[][] DataSetOptions() {
+        return new Object[][]{
+                new Object[]{"selenium"},
+                new Object[]{"selenified"},
+                new Object[]{"docker"}
+        };
+    }
+
+    @DataProvider(name = "fieldErrors", parallel = true)
+    public Object[][] DataSetOptionsFields() {
+        return new Object[][]{
+                new Object[]{"FirstName"},
+                new Object[]{"LastName"},
+                new Object[]{"email"},
+                new Object[]{"Company"}
+        };
+    }
+
+    @Test(dataProvider = "search items")
+    public void seleniumSearch(String searchItem) {
         // use this object to manipulate the app
         App app = this.apps.get();
         Home home = new Home(app);
-        home.searchFor("selenium");
+        home.searchFor(searchItem);
         // wait for the search to run
-        app.waitFor().titleEquals("You searched for selenium - Coveros");
-        app.azzert().titleEquals("You searched for selenium - Coveros");
+        app.waitFor().titleEquals("You searched for " + searchItem + " - Coveros");
+        app.azzert().titleEquals("You searched for " + searchItem + " - Coveros");
         // close out the test
         finish();
     }
@@ -51,15 +71,15 @@ public class CoverosIT extends Selenified {
         finish();
     }
 
-    @Test
-    public void selenifiedDownloadErrorField() {
+    @Test(dataProvider = "fieldErrors")
+    public void selenifiedDownloadErrorField(String className) {
         App app = this.apps.get();
         Home home = new Home(app);
         home.navigateToSelenified();
         SelenifiedProduct selenified = new SelenifiedProduct(app);
         selenified.clickDownloadButton();
         selenified.waitForDownloadMessage();
-        selenified.assertFieldMessage("FirstName", "Please fill the required field.");
+        selenified.assertFieldMessage(className, "Please fill the required field.");
         finish();
     }
 
