@@ -36,6 +36,7 @@ public class CoverosIT extends Selenified {
         app.newElement(Locator.XPATH, "//*[@id='header']/div[2]").click();
         app.newElement(Locator.LINKTEXT, "Selenified").click();
         app.newElement(Locator.XPATH, "//form/p/input").assertState().enabled();
+	finish();
     }
 
     @Test
@@ -48,6 +49,7 @@ public class CoverosIT extends Selenified {
         Element element = app.newElement(Locator.XPATH, "//form/div[2]");
         element.waitForState().displayed();
         element.assertEquals().text("Validation errors occurred. Please confirm the fields and submit it again.");
+	finish();
     }
 
     @Test
@@ -59,6 +61,7 @@ public class CoverosIT extends Selenified {
 
         app.newElement(Locator.XPATH, "//form/div[2]").waitForState().displayed();
         app.newElement(Locator.CLASSNAME, "FirstName").assertEquals().text("Please fill the required field.");
+	finish();
     }
 
     @Test
@@ -74,5 +77,6 @@ public class CoverosIT extends Selenified {
         Element element = app.newElement(Locator.XPATH, "//form/div[2]");
         element.waitForState().displayed();
         element.assertEquals().text("Thank you for your interest in Selenified. Your download should have started.");
+	finish();
     }
 }
