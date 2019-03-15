@@ -6,27 +6,26 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class GoogleIT extends Selenified {
+public class CoverosIT extends Selenified {
 
     @BeforeClass(alwaysRun = true)
     public void beforeClass(ITestContext test) {
         // set the base URL for the tests here
-        setTestSite(this, test, "https://www.google.com");
+        setTestSite(this, test, "https://www.coveros.com");
     }
 
     @Test
-    public void cheeseSearch() {
+    public void seleniumSearch() {
         // use this object to manipulate the app
         App app = this.apps.get();
         // identify our elements
-        Element search = app.newElement(Locator.NAME, "q");
-        Element searchResults = app.newElement(Locator.ID, "ires");
+        Element search = app.newElement(Locator.ID, "s");
         // perform the search
-        search.type("cheese");
+        search.type("selenium");
         search.submit();
         // wait for the search to run
-        searchResults.waitFor().displayed();
-        app.azzert().titleEquals("cheese - Google Search");
+        app.waitFor().titleEquals("You searched for selenium - Coveros");
+        app.azzert().titleEquals("You searched for selenium - Coveros");
         // close out the test
         finish();
     }
