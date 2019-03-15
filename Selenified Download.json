@@ -39,17 +39,17 @@
     },
     {
       "Command": "click",
-      "Target": "//*[@id=\"wpcf7-f7147-o1\"]/form/p/input",
+      "Target": "//form/p/input",
       "Value": ""
     },
     {
       "Command": "waitForVisible",
-      "Target": "//*[@id=\"wpcf7-f7147-o1\"]/form/div[2]",
+      "Target": "//form/div[2]",
       "Value": ""
     },
     {
       "Command": "assertText",
-      "Target": "//*[@id=\"wpcf7-f7147-o1\"]/form/div[2]",
+      "Target": "//form/div[2]",
       "Value": "Thank you for your interest in Selenified. Your download should have started."
     }
   ]
