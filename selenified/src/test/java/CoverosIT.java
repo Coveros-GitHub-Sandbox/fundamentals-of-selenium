@@ -43,5 +43,6 @@ public class CoverosIT extends Selenified {
         Element element = app.newElement(Locator.XPATH, "//form/div[2]");
         element.waitForState().displayed();
         element.assertEquals().text("Thank you for your interest in Selenified. Your download should have started.");
+	finish();
     }
 }
