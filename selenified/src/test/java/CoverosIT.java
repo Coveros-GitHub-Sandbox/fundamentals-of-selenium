@@ -31,6 +31,37 @@ public class CoverosIT extends Selenified {
     }
 
     @Test
+    public void selenifiedDownloadButton() {
+        App app = this.apps.get();
+        app.newElement(Locator.XPATH, "//*[@id='header']/div[2]").click();
+        app.newElement(Locator.LINKTEXT, "Selenified").click();
+        app.newElement(Locator.XPATH, "//form/p/input").assertState().enabled();
+    }
+
+    @Test
+    public void selenifiedDownloadError() {
+        App app = this.apps.get();
+        app.newElement(Locator.XPATH, "//*[@id='header']/div[2]").click();
+        app.newElement(Locator.LINKTEXT, "Selenified").click();
+        app.newElement(Locator.XPATH, "//form/p/input").click();
+
+        Element element = app.newElement(Locator.XPATH, "//form/div[2]");
+        element.waitForState().displayed();
+        element.assertEquals().text("Validation errors occurred. Please confirm the fields and submit it again.");
+    }
+
+    @Test
+    public void selenifiedDownloadErrorField() {
+        App app = this.apps.get();
+        app.newElement(Locator.XPATH, "//*[@id='header']/div[2]").click();
+        app.newElement(Locator.LINKTEXT, "Selenified").click();
+        app.newElement(Locator.XPATH, "//form/p/input").click();
+
+        app.newElement(Locator.XPATH, "//form/div[2]").waitForState().displayed();
+        app.newElement(Locator.CLASSNAME, "FirstName").assertEquals().text("Please fill the required field.");
+    }
+
+    @Test
     public void selenifiedDownload() {
         App app = this.apps.get();
         app.newElement(Locator.XPATH, "//*[@id='header']/div[2]").click();
