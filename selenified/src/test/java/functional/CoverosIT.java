@@ -71,7 +71,7 @@ public class CoverosIT extends Selenified {
         SelenifiedProduct selenified = new SelenifiedProduct(app);
         selenified.downloadSelenified("Max", "Saperstone", "max.saperstone@coveros.com", "Coveros");
         selenified.waitForDownloadMessage();
-        selenified.assertDownloadMessage("Thank you for your interest in SelenifiedProduct. Your download should have started.");
+        selenified.assertDownloadMessage("Thank you for your interest in Selenified. Your download should have started.");
         finish();
     }
 }

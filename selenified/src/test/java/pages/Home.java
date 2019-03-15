@@ -13,7 +13,7 @@ public class Home {
     public Home(App app) {
         search = app.newElement(Locator.ID, "s");
         header = app.newElement(Locator.XPATH, "//*[@id='header']/div[2]");
-        selenified = app.newElement(Locator.LINKTEXT, "SelenifiedProduct");
+        selenified = app.newElement(Locator.LINKTEXT, "Selenified");
     }
 
     public void searchFor(String term) {
