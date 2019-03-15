@@ -29,4 +29,19 @@ public class CoverosIT extends Selenified {
         // close out the test
         finish();
     }
+
+    @Test
+    public void selenifiedDownload() {
+        App app = this.apps.get();
+        app.newElement(Locator.XPATH, "//*[@id='header']/div[2]").click();
+        app.newElement(Locator.LINKTEXT, "Selenified").click();
+        app.newElement(Locator.NAME, "FirstName").type("Max");
+        app.newElement(Locator.NAME, "LastName").type("Saperstone");
+        app.newElement(Locator.NAME, "email").type("max.saperstone@coveros.com");
+        app.newElement(Locator.NAME, "Company").type("Coveros");
+        app.newElement(Locator.XPATH, "//form/p/input").click();
+        Element element = app.newElement(Locator.XPATH, "//form/div[2]");
+        element.waitForState().displayed();
+        element.assertEquals().text("Thank you for your interest in Selenified. Your download should have started.");
+    }
 }
