@@ -1,0 +1,138 @@
+{
+  "id": "36588a8f-f531-41a5-b10a-d753f1854834",
+  "version": "2.0",
+  "name": "Selenified Download",
+  "url": "https://www.coveros.com",
+  "tests": [{
+    "id": "b093c666-a7ad-47e9-9417-da32083d9b5f",
+    "name": "Selenified Download",
+    "commands": [{
+      "id": "27d0d78e-a364-40e5-9272-dabdc9c74f33",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5b28481f-e4da-4afb-9e48-681b5fbfea5a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Products",
+      "targets": [
+        ["linkText=Products", "linkText"],
+        ["css=#menu-item-6734 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Products')]", "xpath:link"],
+        ["xpath=//li[@id='menu-item-6734']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/#projects')]", "xpath:href"],
+        ["xpath=//nav/ul/li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Products')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6cea162-d3f9-4bfb-81bd-2e7409ed2696",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa-puzzle-piece",
+      "targets": [
+        ["css=.fa-puzzle-piece", "css:finder"],
+        ["xpath=//div[@id='text-42']/div/p/a/i", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]/div/p/a/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bcf9baa9-70a2-47aa-9e4b-4789cce532ef",
+      "comment": "",
+      "command": "click",
+      "target": "name=FirstName",
+      "targets": [
+        ["name=FirstName", "name"],
+        ["css=.FirstName > .wpcf7-form-control", "css:finder"],
+        ["xpath=//input[@name='FirstName']", "xpath:attributes"],
+        ["xpath=//div[@id='wpcf7-f7147-o1']/form/p/span/input", "xpath:idRelative"],
+        ["xpath=//span/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2afeba82-e05a-49ea-88be-ce19183a4d75",
+      "comment": "",
+      "command": "type",
+      "target": "name=FirstName",
+      "targets": [
+        ["name=FirstName", "name"],
+        ["css=.FirstName > .wpcf7-form-control", "css:finder"],
+        ["xpath=//input[@name='FirstName']", "xpath:attributes"],
+        ["xpath=//div[@id='wpcf7-f7147-o1']/form/p/span/input", "xpath:idRelative"],
+        ["xpath=//span/input", "xpath:position"]
+      ],
+      "value": "Max"
+    }, {
+      "id": "7b0d4c53-e5fa-4426-92b9-2690829bfeab",
+      "comment": "",
+      "command": "type",
+      "target": "name=LastName",
+      "targets": [
+        ["name=LastName", "name"],
+        ["css=.LastName > .wpcf7-form-control", "css:finder"],
+        ["xpath=//input[@name='LastName']", "xpath:attributes"],
+        ["xpath=//div[@id='wpcf7-f7147-o1']/form/p/span[2]/input", "xpath:idRelative"],
+        ["xpath=//span[2]/input", "xpath:position"]
+      ],
+      "value": "Saperstone"
+    }, {
+      "id": "5307f7cd-49a4-4abb-a527-4e217c77d578",
+      "comment": "",
+      "command": "type",
+      "target": "name=email",
+      "targets": [
+        ["name=email", "name"],
+        ["css=.wpcf7-email", "css:finder"],
+        ["xpath=//input[@name='email']", "xpath:attributes"],
+        ["xpath=//div[@id='wpcf7-f7147-o1']/form/p/span[3]/input", "xpath:idRelative"],
+        ["xpath=//span[3]/input", "xpath:position"]
+      ],
+      "value": "max.saperstone@coveros.com"
+    }, {
+      "id": "3e05c9bb-df19-4687-b01f-49c4da72fb75",
+      "comment": "",
+      "command": "type",
+      "target": "name=Company",
+      "targets": [
+        ["name=Company", "name"],
+        ["css=.Company > .wpcf7-form-control", "css:finder"],
+        ["xpath=//input[@name='Company']", "xpath:attributes"],
+        ["xpath=//div[@id='wpcf7-f7147-o1']/form/p/span[4]/input", "xpath:idRelative"],
+        ["xpath=//span[4]/input", "xpath:position"]
+      ],
+      "value": "Coveros"
+    }, {
+      "id": "f355e4f2-bb92-464c-9fed-9fc5c6bcdb30",
+      "comment": "",
+      "command": "click",
+      "target": "css=.wpcf7-submit",
+      "targets": [
+        ["css=.wpcf7-submit", "css:finder"],
+        ["xpath=//input[@value='Download']", "xpath:attributes"],
+        ["xpath=//div[@id='wpcf7-f7147-o1']/form/p/input", "xpath:idRelative"],
+        ["xpath=//p/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5871fb81-2c49-4b40-99d9-a9b85559b566",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.wpcf7-response-output ",
+      "targets": [],
+      "value": "Thank you for your interest in Selenified. Your download should have started."
+    }]
+  }],
+  "suites": [{
+    "id": "1fedfa5f-94ff-4687-b710-da07f229d0b9",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["b093c666-a7ad-47e9-9417-da32083d9b5f"]
+  }],
+  "urls": ["https://www.coveros.com/"],
+  "plugins": []
+}
