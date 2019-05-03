@@ -1,10 +1,8 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
@@ -12,14 +10,14 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class CoverosIT {
 
     @FindBy(id = "s")
     WebElement searchElement;
 
-    @FindBy(xpath = "//*[@id='header']/div[2]")
+    @FindBy(css = "#header div:nth-child(2)")
     WebElement header;
 
     @FindBy(linkText = "Selenified")
@@ -43,19 +41,19 @@ public class CoverosIT {
     })
     WebElement submitInput;
 
-    By downloadMessage = By.xpath("//form/div[2]");
+    By downloadMessage = By.className("wpcf7-response-output");
 
 
     @Test
     public void seleniumSearch() {
         //for linux/mac installations
-        System.setProperty("webdriver.gecko.driver", "lib/geckodriver");
+//        System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
         //for windows installations
-//        System.setProperty("webdriver.gecko.driver", "lib/geckodriver.exe");
-        // Create a new instance of the Firefox driver
+//        System.setProperty("webdriver.gecko.driver", "lib/chromedriver.exe");
+        // Create a new instance of the Chrome driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
 
         // instantiate our elements
         PageFactory.initElements(driver, this);
@@ -65,30 +63,22 @@ public class CoverosIT {
         // Alternatively the same thing can be done like this
         // driver.navigate().to("https://www.coveros.com");
 
-        // Find the text input element by its name
-
         // Enter something to search for
         searchElement.sendKeys("selenium");
 
         // Now submit the form. WebDriver will find the form for us from the element
         searchElement.submit();
 
-        // Check the title of the page
-        System.out.println("Page title is: " + driver.getTitle());
-
         // Coveros's search is rendered dynamically with JavaScript.
         // Wait for the page to load, timeout after 10 seconds
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getTitle().startsWith("You searched for");
-            }
-        });
-
-        // Should see: "cheese! - Google Search"
-        System.out.println("Page title is: " + driver.getTitle());
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("header-blog")));
 
         //take our screenshot
         takeScreenshot(driver, "Selenium Search");
+
+        // Should see: "You searched for selenified - Coveros"
+        assertEquals(driver.getTitle(), "You searched for selenium - Coveros");
 
         //Close the browser
         driver.quit();
