@@ -1,6 +1,6 @@
 {
   "Name": "Selenified Download",
-  "CreationDate": "2019-3-15",
+  "CreationDate": "2019-5-3",
   "Commands": [
     {
       "Command": "open",
@@ -9,7 +9,7 @@
     },
     {
       "Command": "click",
-      "Target": "//*[@id=\"header\"]/div[2]",
+      "Target": "css=#header div:nth-child(2)",
       "Value": ""
     },
     {
@@ -39,17 +39,17 @@
     },
     {
       "Command": "click",
-      "Target": "//form/p/input",
+      "Target": "css=*[value='Download']",
       "Value": ""
     },
     {
       "Command": "waitForVisible",
-      "Target": "//form/div[2]",
+      "Target": "css=.wpcf7-response-output",
       "Value": ""
     },
     {
       "Command": "assertText",
-      "Target": "//form/div[2]",
+      "Target": "css=.wpcf7-response-output",
       "Value": "Thank you for your interest in Selenified. Your download should have started."
     }
   ]
