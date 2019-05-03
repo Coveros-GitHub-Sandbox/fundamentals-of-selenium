@@ -90,9 +90,11 @@ public class CoverosIT {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.coveros.com");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
         PageFactory.initElements(driver, this);
         header.click();
         selenifiedLink.click();
+
         PageFactory.initElements(driver, this);
         firstNameInput.sendKeys("Max");
         lastNameInput.sendKeys("Saperstone");
@@ -101,7 +103,8 @@ public class CoverosIT {
         submitInput.click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(downloadMessage));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(downloadMessage));
+
         assertEquals(driver.findElement(downloadMessage).getText(), "Thank you for your interest in Selenified. Your download should have started.");
         takeScreenshot(driver, "Selenified Download");
         driver.quit();
@@ -110,6 +113,5 @@ public class CoverosIT {
     private void takeScreenshot(WebDriver driver, String testName) {
         String screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
         Reporter.log(testName + "<br/><br/>\n\n<img src=\"data:image/png;base64," + screenshot + "\"/>");
-
     }
 }
