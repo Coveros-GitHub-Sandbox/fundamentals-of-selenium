@@ -1,11 +1,13 @@
 package functional;
 
+import com.coveros.selenified.Locator;
 import com.coveros.selenified.Selenified;
 import com.coveros.selenified.application.App;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pages.Blogs;
 import pages.Home;
 import pages.SelenifiedProduct;
 
@@ -42,10 +44,9 @@ public class CoverosIT extends Selenified {
         App app = this.apps.get();
         Home home = new Home(app);
         home.searchFor(searchItem);
-        // wait for the search to run
-        app.waitFor().titleEquals("You searched for " + searchItem + " - Coveros");
-        app.azzert().titleEquals("You searched for " + searchItem + " - Coveros");
-        // close out the test
+        Blogs blogs = new Blogs(app);
+        blogs.waitForLoad();
+        blogs.checkTitle("You searched for " + searchItem + " - Coveros");
         finish();
     }
 

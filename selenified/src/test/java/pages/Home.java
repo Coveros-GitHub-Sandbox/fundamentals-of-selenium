@@ -12,7 +12,7 @@ public class Home {
 
     public Home(App app) {
         search = app.newElement(Locator.ID, "s");
-        header = app.newElement(Locator.XPATH, "//*[@id='header']/div[2]");
+        header = app.newElement(Locator.CSS, "#header div:nth-child(2)");
         selenified = app.newElement(Locator.LINKTEXT, "Selenified");
     }
 

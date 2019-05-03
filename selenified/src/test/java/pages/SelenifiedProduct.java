@@ -16,12 +16,12 @@ public class SelenifiedProduct {
 
     public SelenifiedProduct(App app) {
         this.app = app;
-        downloadButton = app.newElement(Locator.XPATH, "//form/p/input");
+        downloadButton = app.newElement(Locator.CSS, "*[value='Download']");
         firstNameInput = app.newElement(Locator.NAME, "FirstName");
         lastNameInput = app.newElement(Locator.NAME, "LastName");
         emailInput = app.newElement(Locator.NAME, "email");
         companyInput = app.newElement(Locator.NAME, "Company");
-        downloadMessage = app.newElement(Locator.XPATH, "//form/div[2]");
+        downloadMessage = app.newElement(Locator.CLASSNAME, "wpcf7-response-output");
 
     }
 
