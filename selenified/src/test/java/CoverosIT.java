@@ -19,13 +19,14 @@ public class CoverosIT extends Selenified {
         // use this object to manipulate the app
         App app = this.apps.get();
         // identify our elements
-        Element search = app.newElement(Locator.ID, "s");
+        Element searchBox = app.newElement(Locator.ID, "s");
         // perform the search
-        search.type("selenium");
-        search.submit();
-        // wait for the search to run
-        app.waitFor().titleEquals("You searched for selenium - Coveros");
-        app.azzert().titleEquals("You searched for selenium - Coveros");
+        searchBox.type("selenified");
+        searchBox.submit();
+        // wait for some search results to come back
+        app.newElement(Locator.CLASSNAME, "header-blog").waitForState().displayed();
+        // ensure the title shows what we expect
+        app.azzert().titleEquals("You searched for selenified - Coveros");
         // close out the test
         finish();
     }
