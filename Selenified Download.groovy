@@ -34,10 +34,10 @@ String baseUrl = "https://www.katalon.com/"
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 selenium.open("https://www.coveros.com/")
 selenium.click("link=Products")
-selenium.click("xpath=(.//*[normalize-space(text()) and normalize-space(.)='SecureCI'])[3]/following::i[1]")
+selenium.click("link=Selenified")
 selenium.type("name=FirstName", "Max")
 selenium.type("name=LastName", "Saperstone")
 selenium.type("name=email", "max.saperstone@coveros.com")
 selenium.type("name=Company", "Coveros")
-selenium.click("xpath=(.//*[normalize-space(text()) and normalize-space(.)='Download Selenified'])[1]/following::input[10]")
-assertEquals("Thank you for your interest in Selenified. Your download should have started.", selenium.getText("xpath=(.//*[normalize-space(text()) and normalize-space(.)='Thank you for your interest in Selenified. Your download should have started.'])[1]/following::div[2]"));
+selenium.click("css=*[value='Download']")
+assertEquals("Thank you for your interest in Selenified. Your download should have started.", selenium.getText("css=.wpcf7-response-output"));
