@@ -14,7 +14,7 @@ public class CoverosIT {
         //for linux/mac installations
 //        System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
         //for windows installations
-//        System.setProperty("webdriver.gecko.driver", "lib/chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
         // Create a new instance of the Chrome driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
